@@ -1,4 +1,4 @@
-import * as api from '../../api/gamelist'
+import * as api from '@/api/gamelist'
 
 export const gamelist = {
     state: {
