@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import GameCard from "./GameCard.vue"
+import GameCard from "../components/GameCard.vue"
 
 export default {
   name: 'AllGames',

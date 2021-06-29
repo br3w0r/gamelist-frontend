@@ -59,19 +59,13 @@
         </v-row>
       </v-container>
     </v-app-bar>
-    <AllGames></AllGames>
+    <router-view></router-view>
   </v-app>
 </template>
 
 <script>
-import AllGames from "./components/AllGames.vue"
-
 export default {
   name: 'App',
-
-  components: {
-    AllGames
-  },
 
   data: () => ({
     items: ["Super Mario Galaxy", "Doom", "Age of Empires II", "Grand Theft Auto V", "Minecraft"],
