@@ -5,8 +5,9 @@
     </span>
     <v-container align="center" style="text-align: center">
       <GameCard
-      v-for="index in items"
-      :key="index"
+      v-for="game in games"
+      :key="game.id"
+      :game="game"
       ></GameCard>
     </v-container>
   </div>
@@ -22,10 +23,15 @@ export default {
     GameCard
   },
 
-  data: () => ({
-    items: ["Super Mario Galaxy", "Doom", "Age of Empires II", "Grand Theft Auto V", "Minecraft"],
-    searchValue: ""
-  }),
+  computed: {
+    games() {
+      return this.$store.state.gamelist.games
+    }
+  },
+
+  mounted: function() {
+    this.$store.dispatch('getAllGames');
+  }
 };
 </script>
 

@@ -2,14 +2,16 @@
   <div data-app class="game-card">
     <v-menu absolute>
       <template v-slot:activator="{ on, attrs }">
-        <v-card v-bind="attrs" v-on="on" width="14em">
+        <v-card v-bind="attrs" v-on="on">
           <v-img
             height="200"
-            src="https://static.metacritic.com/images/products/games/9/2fe120b980872297a7a17ab582f6af7d-98.jpg"
+            :src="game['image_url']"
           ></v-img>
-          <v-card-title>Super Mario Galaxy</v-card-title>
+          <v-card-title>{{ game['name'] }}</v-card-title>
           <v-card-subtitle>
-            Wii
+            {{ game['platforms'][0].name }}
+            <br />
+            {{ game['year_released'] }}
             <v-icon style="float: right">{{ currentType }}</v-icon>
           </v-card-subtitle>
         </v-card>
@@ -36,6 +38,9 @@
 export default {
   name: "GameCard",
 
+  props: [
+    'game'
+  ],
   data: () => ({
     currentType: "mdi-star-outline",
     gameActionList: [
@@ -56,7 +61,7 @@ export default {
 
 <style>
 .game-card {
-  width: 14em;
+  width: 15em;
   display: inline-block;
   margin: .8em;
   text-align: start;
