@@ -12,7 +12,7 @@
           <v-icon>mdi-gamepad-round-up</v-icon>
           <span id="site-name" class="font-weight-bold ml-2 mr-3">MyGameList</span>
 
-          <v-btn class="font-weight-light" text>
+          <v-btn to="/" class="font-weight-light" text>
             <v-icon>mdi-controller-classic-outline</v-icon>
             <span style="margin-left: .5em">ALL GAMES</span>
           </v-btn>
@@ -41,8 +41,7 @@
 
           <v-col cols="auto">
           <v-btn
-            href="https://github.com/vuetifyjs/vuetify/releases/latest"
-            target="_blank"
+            to="/about"
             text
           >
             <span>About</span>
@@ -59,6 +58,7 @@
         </v-row>
       </v-container>
     </v-app-bar>
+    <div class="space"></div>
     <router-view></router-view>
   </v-app>
 </template>
@@ -75,4 +75,7 @@ export default {
 </script>
 
 <style>
+.space {
+  height: 5em
+}
 </style>
