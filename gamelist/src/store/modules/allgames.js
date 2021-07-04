@@ -1,6 +1,7 @@
 import * as api from '@/api/gamelist'
 
-export const gamelist = {
+export const allgames = {
+    namespaced: true,
     state: {
       first: true,
       games: []

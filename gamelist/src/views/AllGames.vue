@@ -25,12 +25,12 @@ export default {
 
   computed: {
     games() {
-      return this.$store.state.gamelist.games
+      return this.$store.state.allgames.games
     }
   },
 
   mounted: function() {
-    this.$store.dispatch('getAllGames');
+    this.$store.dispatch('allgames/getAllGames');
   }
 };
 </script>
