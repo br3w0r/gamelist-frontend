@@ -39,6 +39,5 @@ export default {
 .all-games {
   max-width: 1024px;
   margin: auto;
-  margin-top: 100px;
 }
 </style>
