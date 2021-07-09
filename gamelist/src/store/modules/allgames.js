@@ -15,15 +15,23 @@ export const allgames = {
       }
     },
     actions: {
-      async getAllGames({ commit, state }) {
+      async getAllGames({ commit, dispatch, state }) {
         if (state.first) {
           var response = await api.GetAllGames();
           
           if (!response.ok) {
-            console.log("!!! Bad status: " + response.status);
+            if (response.status == 401) {
+              let ok = await dispatch('auth/refreshTokens', null, {root: true})
+              if (ok) {
+                dispatch('getAllGames')
+              } else {
+                return false
+              }
+            }
           } else {
             commit("addGames", response.body)
             commit("setFirst")
+            return true
           }
         }
       }

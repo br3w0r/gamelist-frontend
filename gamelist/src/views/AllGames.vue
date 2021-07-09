@@ -30,7 +30,12 @@ export default {
   },
 
   mounted: function() {
-    this.$store.dispatch('allgames/getAllGames');
+    this.$store.dispatch('allgames/getAllGames')
+      .then(result => {
+        if (!result) {
+          this.$router.push("/login")
+        }
+      });
   }
 };
 </script>

@@ -60,12 +60,11 @@
                 </v-btn>
               </template>
               <v-list>
-                <v-list-item
-                  v-for="item, i in profileItems"
-                  :key="i"
-                  link
-                >
-                  <v-list-item-title v-text="item"></v-list-item-title>
+                <v-list-item link>
+                  <v-list-item-title>My Profile</v-list-item-title>
+                </v-list-item>
+                <v-list-item link @click="signOut">
+                  <v-list-item-title>Sign Out</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -85,14 +84,17 @@ export default {
   data: () => ({
     items: ["Super Mario Galaxy", "Doom", "Age of Empires II", "Grand Theft Auto V", "Minecraft"],
     searchValue: "",
-    profileItems: [
-      "My Profile",
-      "Sign Out"
-    ]
   }),
   computed: {
     renderHeader() {
       return this.$route.name != "Login"
+    }
+  },
+  methods: {
+    signOut: function() {
+      this.$store.dispatch('auth/signOut').then(() => {
+        location.reload();
+      })
     }
   }
 };
