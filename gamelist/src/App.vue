@@ -5,6 +5,7 @@
       color="primary"
       dark
       id="app-bar"
+      v-if="renderHeader"
     >
       <v-container>
         <v-row align="center" no-gutters style="height: 50px" class="flex-nowrap">
@@ -72,7 +73,7 @@
         </v-row>
       </v-container>
     </v-app-bar>
-    <div class="space"></div>
+    <div class="space" v-if="renderHeader"></div>
     <router-view></router-view>
   </v-app>
 </template>
@@ -89,6 +90,11 @@ export default {
       "Sign Out"
     ]
   }),
+  computed: {
+    renderHeader() {
+      return this.$route.name != "Login"
+    }
+  }
 };
 </script>
 
