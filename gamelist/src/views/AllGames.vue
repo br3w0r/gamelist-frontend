@@ -1,7 +1,7 @@
 <template>
   <div class="all-games">
     <span class="text-h5" style="margin-left: 30px">
-      All Games
+      {{ myGames ? "My Games" : "All Games" }}
     </span>
     <v-container align="center" style="text-align: center">
       <GameCard
@@ -23,19 +23,37 @@ export default {
     GameCard
   },
 
+  props: [
+    'myGames'
+  ],
+
   computed: {
     games() {
-      return this.$store.state.allgames.games
+      return this.myGames ?
+        this.$store.state.gamelist.myGames.games
+        : this.$store.state.gamelist.allGames.games
+    }
+  },
+
+  methods: {
+    loadGames: function() {
+      this.$store.dispatch('gamelist/getAllGames', this.myGames)
+        .then(result => {
+          if (!result) {
+            this.$router.push("/login")
+          }
+        });
+    }
+  },
+
+  watch:{
+   $route() {
+      this.loadGames()
     }
   },
 
   mounted: function() {
-    this.$store.dispatch('allgames/getAllGames')
-      .then(result => {
-        if (!result) {
-          this.$router.push("/login")
-        }
-      });
+    this.loadGames()
   }
 };
 </script>

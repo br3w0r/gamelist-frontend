@@ -17,7 +17,7 @@
               <v-icon>mdi-controller-classic-outline</v-icon>
               <span style="margin-left: .5em">ALL GAMES</span>
             </v-btn>
-            <v-btn class="font-weight-light" style="margin-right: 1em" text>
+            <v-btn to="/my" class="font-weight-light" style="margin-right: 1em" text>
               <v-icon>mdi-format-list-bulleted</v-icon>
               <span style="margin-left: .5em">MY LIST</span>
             </v-btn>

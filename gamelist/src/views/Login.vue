@@ -47,8 +47,8 @@ export default {
   }
   #login {
     margin: auto;
-    max-width: 836px;
     width: 490px;
+    margin-top: 2em;
   }
   #login-wrapper {
     height: 90%

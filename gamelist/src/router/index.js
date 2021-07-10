@@ -7,7 +7,14 @@ const routes = [
   {
     path: '/',
     name: "AllGames",
-    component: () => import(/* webpackChunkName: "allgames" */ '../views/AllGames.vue')
+    component: () => import(/* webpackChunkName: "allgames" */ '../views/AllGames.vue'),
+    props: { myGames: false }
+  },
+  {
+    path: '/my',
+    name: "MyGames",
+    component: () => import(/* webpackChunkName: "allgames" */ '../views/AllGames.vue'),
+    props: { myGames: true }
   },
   {
     path: '/about',
