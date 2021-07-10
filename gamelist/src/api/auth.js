@@ -14,3 +14,9 @@ export const RefreshTokens = async (refreshToken) => {
         "refresh_token": refreshToken
     })
 }
+
+export const RevokeRefreshToken = async (refreshToken) => {
+    return genericRequest(ROOT_URL + "/api/v0/revoke-token", "POST", {
+        "refresh_token": refreshToken
+    })
+}

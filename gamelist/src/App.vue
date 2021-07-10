@@ -92,8 +92,10 @@ export default {
   },
   methods: {
     signOut: function() {
-      this.$store.dispatch('auth/signOut').then(() => {
-        location.reload();
+      this.$store.dispatch('auth/signOut').then(ok => {
+        if (ok) {
+          location.reload();
+        }
       })
     }
   }

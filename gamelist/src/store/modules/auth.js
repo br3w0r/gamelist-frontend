@@ -48,10 +48,15 @@ export const auth = {
       return false
     },
     async signOut() {
+      let refreshToken = localStorage.getItem('refresh_token');
+      let response = await api.RevokeRefreshToken(refreshToken);
+      if (!response.ok) {
+        console.log('failed to make revoke refresh token request: ' + response.status + ' : ' + response.body)
+        return false
+      }
       localStorage.removeItem('token')
-      // let refreshToken = localStorage.getItem('refresh_token')
       localStorage.removeItem('refresh_token')
-      // TODO: Call api to revoke the refresh token
+      return true
     }
   }
 }
