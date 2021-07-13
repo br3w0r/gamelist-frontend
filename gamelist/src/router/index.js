@@ -17,6 +17,11 @@ const routes = [
     props: { myGames: true }
   },
   {
+    path: '/game-details/:id',
+    name: "GameDetails",
+    component: () => import(/* webpackChunkName: "allgames" */ '../views/GameDetails.vue')
+  },
+  {
     path: '/about',
     name: "About",
     component: () => import(/* webpackChunkName: "allgames" */ '../views/About.vue')

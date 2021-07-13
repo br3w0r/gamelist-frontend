@@ -1,12 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { ListGame } from '../api/gamelist'
+import { ListGame, SearchGames } from '../api/gamelist'
 import { gamelist } from './modules/gamelist'
+import { gamedetails } from './modules/gamedetails'
 import { auth } from './modules/auth'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  modules: {
+    gamelist,
+    gamedetails,
+    auth
+  },
   state: {
     listTypes: [
       {
@@ -31,11 +37,14 @@ export default new Vuex.Store({
       "mdi-check",
       "mdi-reload",
       "mdi-star"
-    ]
+    ],
+    
+    searchEntries: []
   },
-  modules: {
-    gamelist,
-    auth
+  mutations: {
+    setSearchEntries(state, entries) {
+      state.searchEntries = entries;
+    }
   },
   actions: {
     async listGame({ commit }, data) {
@@ -50,6 +59,14 @@ export default new Vuex.Store({
 
       commit('gamelist/setFirst', ['myGames', true])
       return true
+    },
+    async searchGames({ commit }, name) {
+      let response = await SearchGames(name)
+      if (!response.ok) {
+        console.log("searchGames bad status: " + response.status + " : " + JSON.stringify(response.body))
+        return false
+      }
+      commit('setSearchEntries', response.body)
     }
   }
 })

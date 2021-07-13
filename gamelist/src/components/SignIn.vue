@@ -7,11 +7,13 @@
       <v-text-field label="Nickname or email" outlined
         v-model="creds.user"
         :rules="[rules.required]"
+        @keyup.enter="signIn"
       ></v-text-field>
       <v-text-field label="Password"
         type="password" outlined
         v-model="creds.password"
         :rules="[rules.passwordLength]"
+        @keyup.enter="signIn"
         ></v-text-field>
 
       <v-container>
@@ -28,10 +30,10 @@
               Sign up
             </v-btn>
           </v-col>
-          <v-col cols="3">
+          <v-col cols="1.5">
             <v-spacer></v-spacer>
           </v-col>
-          <v-col cols="6">
+          <v-col cols="7.5">
             <v-btn text>
               Forgot password?
             </v-btn>
@@ -60,11 +62,13 @@ export default {
       this.$emit("set-sign-in", false);
     },
     signIn: function() {
-      this.$store.dispatch("auth/getTokens", this.creds).then(ok => {
-        if (ok) {
-          this.$router.push("/")
-        }
-      })
+      if (!this.invalid) {
+        this.$store.dispatch("auth/getTokens", this.creds).then(ok => {
+          if (ok) {
+            this.$router.push("/")
+          }
+        })
+      }
     }
   },
   computed: {

@@ -1,5 +1,5 @@
 <template>
-  <div id="login-wrapper">
+  <v-app>
     <div id="logo">
       <v-icon color="primary">mdi-gamepad-round-up</v-icon>
       <span id="site-name" class="font-weight-bold ml-2">MyGameList</span>
@@ -10,7 +10,7 @@
         <sign-up v-else @set-sign-in="setSignIn" />
       </v-scroll-x-transition>
     </v-container>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -47,15 +47,14 @@ export default {
   }
   #login {
     margin: auto;
-    width: 490px;
-    margin-top: 2em;
-  }
-  #login-wrapper {
-    height: 90%
+    max-width: 465px !important;
+    padding: 0 !important;
+    margin-top: 3em;
   }
   #login-card {
-    min-width: 400px;
     position: absolute !important;
+    max-width: 465px;
+    margin: 6px;
   }
   #space {
     height: 3em

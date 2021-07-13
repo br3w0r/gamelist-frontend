@@ -14,18 +14,23 @@
         </v-card>
       </template>
       <v-list flat>
-        <v-list-item-group>
-          <v-list-item
-            v-for="(item, index) in listTypes"
-            :key="index"
-          >
-            <v-list-item-content>
-              <v-list-item-title @click="listGame(item.id)">
-                <v-icon>{{listTypeToIcon[item.id]}}</v-icon> <span style="margin-left: 1em">{{item.name}}</span>
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
+        <v-list-item link @click="openDetails(game.id)">
+          <v-list-item-title>
+            <v-icon>mdi-information-outline</v-icon>
+            <span style="margin-left: 1em">Details</span>
+          </v-list-item-title>
+        </v-list-item>
+        <v-divider></v-divider>
+        <v-list-item
+          v-for="(item, index) in listTypes"
+          :key="index"
+          link @click="listGame(item.id)"
+        >
+          <v-list-item-title>
+            <v-icon>{{listTypeToIcon[item.id]}}</v-icon>
+            <span style="margin-left: 1em">{{item.name}}</span>
+          </v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-menu>
   </div>
@@ -58,6 +63,9 @@ export default {
           this.game['user_list'] = listType
         }
       })
+    },
+    openDetails(gameId) {
+      this.$router.push({name: 'GameDetails', params: {id: gameId}})
     }
   }
 }
@@ -68,7 +76,8 @@ export default {
   width: 17em;
   height: 21em;
   display: inline-block;
-  margin: .8em;
+  margin-right: .8em;
+  margin-bottom: .8em;
   text-align: start;
 }
 .game-card-title {

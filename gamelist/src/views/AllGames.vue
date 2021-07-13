@@ -3,7 +3,7 @@
     <span class="text-h5" style="margin-left: 30px">
       {{ myGames ? "My Games" : "All Games" }}
     </span>
-    <v-container align="center" style="text-align: center">
+    <v-container class="all-games-wrapper" align="center">
       <GameCard
       v-for="game in games"
       :key="game.id"
@@ -60,7 +60,13 @@ export default {
 
 <style scoped>
 .all-games {
+  width: 100%;
   max-width: 1024px;
   margin: auto;
+}
+.all-games-wrapper {
+  text-align: center;
+  padding: 0 !important;
+  padding-left: 6px !important;
 }
 </style>

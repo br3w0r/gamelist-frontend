@@ -9,3 +9,9 @@ export const GetAllGames = async (myGames) => {
 export const ListGame = async (data) => {
     return genericRequest(ROOT_URL + "/api/v0/list-game", "POST", data)
 }
+
+export const SearchGames = async (name) => {
+    return genericRequest(ROOT_URL + "/api/v0/games/search", "POST", {
+        name
+    })
+}

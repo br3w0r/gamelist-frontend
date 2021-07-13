@@ -8,20 +8,24 @@
         outlined counter="20"
         v-model="creds.nickname"
         :rules="[rules.required, rules.nicknameLength]"
+        @keyup.enter="signUp"
         ></v-text-field>
       <v-text-field label="Email*" outlined
         v-model="creds.email"
         :rules="[rules.email]"
+        @keyup.enter="signUp"
       ></v-text-field>
       <v-text-field label="Password*"
         type="password" outlined
         v-model="creds.password"
         :rules="[rules.required, rules.passwordLength]"
+        @keyup.enter="signUp"
         ></v-text-field>
       <v-text-field label="Description"
         outlined counter="120"
         v-model="creds.description"
         :rules="[rules.decriptionLength]"
+        @keyup.enter="signUp"
         ></v-text-field>
 
       <v-container>
@@ -38,10 +42,10 @@
               Sign in
             </v-btn>
           </v-col>
-          <v-col cols="3">
+          <v-col cols="1.5">
             <v-spacer></v-spacer>
           </v-col>
-          <v-col cols="6">
+          <v-col cols="7.5">
             <v-btn text>
               Forgot password?
             </v-btn>
@@ -78,11 +82,13 @@ export default {
       this.$emit("set-sign-in", true);
     },
     signUp: function() {
-      this.$store.dispatch("auth/signUp", this.creds).then(ok => {
-        if (ok) {
-          this.$router.push("/")
-        }
-      })
+      if (!this.invalid) {
+        this.$store.dispatch("auth/signUp", this.creds).then(ok => {
+          if (ok) {
+            this.$router.push("/")
+          }
+        })
+      }
     }
   },
   computed: {
