@@ -26,9 +26,12 @@
           <v-col>
             <v-autocomplete
               v-model="model"
-              :items="items"
+              :items="searchEntries"
+              :item-text="itemText"
               :loading="isLoading"
               :search-input.sync="search"
+              return-object
+              clearable
               filled
               hide-details
               hide-no-data
@@ -99,9 +102,6 @@ export default {
     renderHeader() {
       return this.$route.name != "Login"
     },
-    items() {
-      return this.searchEntries.map(entry => entry.name)
-    },
     renderSpacer() {
       return this.windowWidth > 1260
     },
@@ -122,6 +122,9 @@ export default {
     }
   },
   methods: {
+    itemText: function(item) {
+      return item.name
+    },
     signOut: function() {
       this.$store.dispatch('auth/signOut').then(ok => {
         if (ok) {
@@ -135,7 +138,7 @@ export default {
   },
   watch: {
     search(name) {
-      if (name.length == 0) return
+      if (name === null || name.length == 0) return
 
       clearTimeout(this.searchTimeout);
       this.isLoading = true;
@@ -143,6 +146,11 @@ export default {
         this.$store.dispatch('searchGames', name)
           .finally(() => this.isLoading = false)
       }, 500);
+    },
+    model(val) {
+      if (val != null && (this.$route.name != 'GameDetails' || this.$route.params.id != val.id)) {
+        this.$router.push({name: 'GameDetails', params: {id: val.id}})
+      }
     }
   },
   mounted: function() {

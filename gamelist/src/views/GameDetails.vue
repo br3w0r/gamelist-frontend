@@ -76,15 +76,23 @@ export default {
           this.details.game['user_list'] = listType
         }
       })
+    },
+    getGameDetails() {
+      this.$store.dispatch('gamedetails/getGameDetails', parseInt(this.$route.params.id))
+        .then(ok => {
+          if (!ok) {
+            this.$router.push('/login')
+          }
+        })
     }
   },
-  mounted: function() {
-    this.$store.dispatch('gamedetails/getGameDetails', parseInt(this.$route.params.id))
-      .then(ok => {
-        if (!ok) {
-          this.$router.push('/login')
-        }
-      })
+  watch: {
+    $route() {
+      this.getGameDetails();
+    }
+  },
+  mounted() {
+    this.getGameDetails();
   }
 }
 </script>
