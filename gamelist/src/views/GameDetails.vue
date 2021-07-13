@@ -79,9 +79,13 @@ export default {
     },
     getGameDetails() {
       this.$store.dispatch('gamedetails/getGameDetails', parseInt(this.$route.params.id))
-        .then(ok => {
-          if (!ok) {
+        .then(status => {
+          if (status == 401) {
             this.$router.push('/login')
+          } else if (status == 404) {
+            this.$router.push({name: 'NotFound'})
+          } else {
+            // Give error message
           }
         })
     }
