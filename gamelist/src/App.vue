@@ -30,6 +30,7 @@
               :item-text="itemText"
               :loading="isLoading"
               :search-input.sync="search"
+              ref="searchBar"
               return-object
               clearable
               filled
@@ -138,7 +139,7 @@ export default {
   },
   watch: {
     search(name) {
-      if (name === null || name.length == 0) return
+      if (name === null || name.length < 2) return
 
       clearTimeout(this.searchTimeout);
       this.isLoading = true;
@@ -150,6 +151,10 @@ export default {
     model(val) {
       if (val != null && (this.$route.name != 'GameDetails' || this.$route.params.id != val.id)) {
         this.$router.push({name: 'GameDetails', params: {id: val.id}})
+        this.$nextTick(() => {
+          this.model = null;
+          this.$refs.searchBar.internalSearch = null;
+        })
       }
     }
   },
