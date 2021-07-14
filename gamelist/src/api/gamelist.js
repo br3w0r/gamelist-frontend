@@ -3,7 +3,7 @@ import { genericRequest } from './generic'
 
 export const GetAllGames = async (myGames) => {
     let path = myGames ? "/api/v0/my-games" : "/api/v0/games/all";
-    return genericRequest(ROOT_URL + path, "GET")
+    return genericRequest(ROOT_URL + path, "POST")
 }
 
 export const ListGame = async (data) => {

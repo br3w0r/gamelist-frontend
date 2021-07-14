@@ -63,8 +63,18 @@ export default new Vuex.Store({
     async searchGames({ commit }, name) {
       let response = await SearchGames(name)
       if (!response.ok) {
-        console.log("searchGames bad status: " + response.status + " : " + JSON.stringify(response.body))
-        return false
+        if (response.status == 401) {
+          let ok = await dispatch('auth/refreshTokens', null, {root: true})
+          if (ok) {
+            await dispatch('searchGames', myGames)
+            return true
+          } else {
+            return false
+          }
+        } else {
+          console.log("searchGames bad status: " + response.status + " : " + JSON.stringify(response.body))
+          return false
+        }
       }
       commit('setSearchEntries', response.body)
     }
