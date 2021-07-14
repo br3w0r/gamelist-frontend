@@ -16,13 +16,13 @@ export const gamedetails = {
         }
     },
     actions: {
-        async getGameDetails({ commit }, gameId) {
+        async getGameDetails({ commit, dispatch }, gameId) {
             let response = await api.GetGameDetails(gameId);
             if (!response.ok) {
                 if (response.status == 401) {
                     let ok = await dispatch('auth/refreshTokens', null, {root: true})
                     if (ok) {
-                        await dispatch('getGameDetails', myGames)
+                        await dispatch('getGameDetails')
                         return true
                     } else {
                         return false

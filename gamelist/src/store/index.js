@@ -60,13 +60,13 @@ export default new Vuex.Store({
       commit('gamelist/setFirst', ['myGames', true])
       return true
     },
-    async searchGames({ commit }, name) {
+    async searchGames({ commit, dispatch }, name) {
       let response = await SearchGames(name)
       if (!response.ok) {
         if (response.status == 401) {
           let ok = await dispatch('auth/refreshTokens', null, {root: true})
           if (ok) {
-            await dispatch('searchGames', myGames)
+            await dispatch('searchGames')
             return true
           } else {
             return false
