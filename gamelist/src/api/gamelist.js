@@ -1,9 +1,14 @@
 import { ROOT_URL } from './const'
 import { genericRequest } from './generic'
 
-export const GetAllGames = async (myGames) => {
-    let path = myGames ? "/api/v0/my-games" : "/api/v0/games/all";
-    return genericRequest(ROOT_URL + path, "POST")
+export const GetAllGames = async (myGames, last, batch_size) => {
+    if (myGames) {
+        return genericRequest(ROOT_URL + "/api/v0/my-games", "GET")
+    }
+    return genericRequest(ROOT_URL + "/api/v0/games/all", "POST", {
+        last,
+        batch_size
+    })
 }
 
 export const ListGame = async (data) => {

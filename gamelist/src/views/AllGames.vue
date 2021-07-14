@@ -8,6 +8,7 @@
       v-for="game in games"
       :key="game.id"
       :game="game"
+      ref="card"
       ></GameCard>
     </v-container>
   </div>
@@ -23,11 +24,23 @@ export default {
     GameCard
   },
 
+  data() { 
+    return {
+      observer: new IntersectionObserver(this.handleIntersect, {
+        root: null,
+        threshold: 0.0
+      })
+    }
+  },
+
   props: [
     'myGames'
   ],
 
   computed: {
+    allGamesFirst() {
+      return this.$store.state.gamelist.allGames.first
+    },
     games() {
       return this.myGames ?
         this.$store.state.gamelist.myGames.games
@@ -36,24 +49,41 @@ export default {
   },
 
   methods: {
-    loadGames: function() {
-      this.$store.dispatch('gamelist/getAllGames', this.myGames)
-        .then(result => {
-          if (!result) {
-            this.$router.push("/login")
-          }
-        });
+    loadGames: function(observer, force) {
+      if (force || this.myGames || this.allGamesFirst) {
+        this.$store.dispatch('gamelist/getAllGames', this.myGames)
+          .then(result => {
+            if (!result) {
+              this.$router.push("/login")
+            }
+          })
+          .finally(() => {
+            if (!this.myGames) {
+              this.$nextTick(() => {
+                observer.observe(this.$refs.card[this.$refs.card.length-1].$el);
+              })
+            }
+          });
+      }
+    },
+    
+    handleIntersect: function(entries, observer) {
+      console.log(entries);
+      if (entries[0].isIntersecting) {
+        observer.unobserve(entries[0].target);
+        this.loadGames(observer, true);
+      }
     }
   },
 
   watch:{
-   $route() {
-      this.loadGames()
+    $route() {
+      this.loadGames(this.observer);
     }
   },
 
   mounted: function() {
-    this.loadGames()
+    this.loadGames(this.observer);
   }
 };
 </script>

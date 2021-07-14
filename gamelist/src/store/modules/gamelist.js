@@ -27,8 +27,15 @@ export const gamelist = {
     actions: {
       async getAllGames({ commit, dispatch, state }, myGames) {
         let gamesType = myGames ? 'myGames' : 'allGames'
-        if (state[gamesType].first) {
-          var response = await api.GetAllGames(myGames);
+        if (!myGames || state[gamesType].first) {
+          let response;
+          if (myGames) {
+            response = await api.GetAllGames(myGames)
+          } else {
+            let last = state[gamesType].games.length > 0 ?
+              state[gamesType].games[state[gamesType].games.length-1].id : 0
+            response = await api.GetAllGames(myGames, last, 6);
+          }
           
           if (!response.ok) {
             if (response.status == 401) {
