@@ -72,7 +72,6 @@ export default {
     },
     
     handleIntersect: function(entries, observer) {
-      console.log(entries);
       if (entries[0].isIntersecting) {
         observer.unobserve(entries[0].target);
         this.loadGames(observer, true);
