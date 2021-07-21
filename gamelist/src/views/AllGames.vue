@@ -64,6 +64,10 @@ export default {
               })
             }
           });
+      } else if (!this.myGames) {
+        this.$nextTick(() => 
+          observer.observe(this.$refs.card[this.$refs.card.length-1].$el)
+        );
       }
     },
     
@@ -79,6 +83,9 @@ export default {
   watch:{
     $route() {
       this.loadGames(this.observer);
+      if (this.myGames) {
+        this.observer.disconnect();
+      }
     }
   },
 
